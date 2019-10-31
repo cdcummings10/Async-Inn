@@ -40,7 +40,22 @@ dotnet build
 #### ERD
 ![Entity Relational Diagram](img/ERD.png)
 
+#### Description
 
+**Rooms:** The room table has connections to RoomAmenities and HotelRooms in a one to many relationship. It also
+has an enum of layouts. The table holds information on rooms, such as the layout as well as the name of the room.
+
+**HotelRooms:** The HotelRooms table is a joint table with payload.  It's composite key is HotelID and RoomNumber,
+though it takes in a RoomID foreign key.  It has connections to Hotels and Rooms table in a many to one relationship.
+
+**Hotels:** The Hotels table has connections only to the HotelRooms Table in a one to many relationship.  This table
+holds the location data for the hotel itself.
+
+**RoomAmenities:** The RoomAmenitites table is a pure joint tale.  It has a composite key of AmenitiesID and RoomID,
+as well as a many to one relationship with those tables as well.
+
+**Amenities:** The Amenities table holds all the information for the amenities that can be added to a hotel room.
+It has a one to many relationship with the RoomAmenities table.
 
 ### Visuals
 
