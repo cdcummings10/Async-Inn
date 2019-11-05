@@ -11,7 +11,7 @@ namespace AsyncInn.Models.Services
     public class RoomManager : IRoomManager
     {
         private AsyncInnDbContext _context;
-        RoomManager(AsyncInnDbContext context)
+        public RoomManager(AsyncInnDbContext context)
         {
             _context = context;
         }
