@@ -3,14 +3,21 @@
 @{
     ViewData["Title"] = "Index";
 }
+    <head>
+        <title>Async Inn</title>
+        <partial name="../Shared/_Styling" />
+    </head>
+    <header>
+        <partial name="../Shared/_Navbar" />
+    </header>
 
-<h1>Index</h1>
+<h1>Amenities</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-bordered table-light">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -18,7 +25,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-striped table-hover">
 @foreach (var item in Model) {
         <tr>
             <td>
