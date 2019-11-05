@@ -60,7 +60,7 @@ namespace AsyncInn.Data
                     {
                         ID = 5,
                         Name = "Lion's Pride Inn",
-                        StreetAddress = "2004 Nortshire Blvd, Portland, OR",
+                        StreetAddress = "2004 Northshire Blvd, Portland, OR",
                         City = "Portland",
                         State = "Oregon",
                         Phone = "(503)132-1323"
