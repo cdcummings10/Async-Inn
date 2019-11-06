@@ -72,3 +72,7 @@ Actual time to finish: 2.5 Hours
 ### Change Log 
 
 1.0: *Created initial site, added DB functionality and connection.* - 31 Oct 2019
+
+1.1: *Updated to bootstrap and added CRUD functionality.* - 4 Nov 2019
+
+1.2: *Implemented repository design pattern. Added interfaces and reattachd functionality.* - 4 Nov 2019
