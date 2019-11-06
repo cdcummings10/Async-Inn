@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.ViewModels;
 
 namespace AsyncInn.Controllers
 {
@@ -73,11 +74,24 @@ namespace AsyncInn.Controllers
             }
 
             var room = await _context.GetRoom(id);
+            var amenities = _context.GetAmenitiesAssociatedWithRoom(id);
+            RoomAmenitiesVM ravm = new RoomAmenitiesVM();
+            ravm.Room = room;
+            ravm.Amenities = amenities;
+            ravm.AmenitiesList = _context.GetAllAmenitiesList();
+            ravm.RoomAmenitiesIDs = new int[ravm.Amenities.Count()];
+
+            int count = 0;
+            foreach (var item in ravm.Amenities)
+            {
+                ravm.RoomAmenitiesIDs[count] = item.AmenitiesID;
+                count++;
+            }
             if (room == null)
             {
                 return NotFound();
             }
-            return View(room);
+            return View(ravm);
         }
 
         // POST: Rooms/Edit/5
@@ -144,6 +158,15 @@ namespace AsyncInn.Controllers
         {
             Room room = await _context.GetRoom(id);
             return room == null ? false : true;
+        }
+
+        [HttpPost, ActionName("DeleteAmenity")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveAmenity(int room_ID, int amenity_ID)
+        {
+            await _context.RemoveAmenityFromRoom(room_ID, amenity_ID);
+            Room room = await _context.GetRoom(room_ID);
+            return View(room);
         }
     }
 }

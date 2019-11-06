@@ -41,10 +41,33 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<RoomAmenities>> GetAmenitiesAssociatedWithRoom(int roomID)
+        public async Task AddAmenityToRoom(int roomID, int amenityID)
         {
-            var amenities = await _context.RoomAmenities.Where(room => room.RoomID == roomID).ToListAsync();
+            RoomAmenities newRoomAmenity = new RoomAmenities();
+            newRoomAmenity.RoomID = roomID;
+            newRoomAmenity.AmenitiesID = amenityID;
+            _context.RoomAmenities.Add(newRoomAmenity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAmenityFromRoom(int roomID, int amenityID)
+        {
+            RoomAmenities chosenToRemove = await _context.RoomAmenities.FirstOrDefaultAsync(x => x.RoomID == roomID && x.AmenitiesID == amenityID);
+            _context.Remove(chosenToRemove);
+            await _context.SaveChangesAsync();
+        }
+
+        public IEnumerable<RoomAmenities> GetAmenitiesAssociatedWithRoom(int roomID)
+        {
+            var amenities = _context.RoomAmenities.Where(room => room.RoomID == roomID)
+                .Include(x => x.Amenities)
+                .Include(x => x.Room);
             return amenities;
+        }
+
+        public IEnumerable<Amenities> GetAllAmenitiesList()
+        {
+            return _context.Amenities;
         }
 
         public async Task<IEnumerable<HotelRoom>> GetHotelsWhereRoomsAreLocated(int roomID)
