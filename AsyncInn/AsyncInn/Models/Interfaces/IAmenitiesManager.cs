@@ -13,8 +13,10 @@ namespace AsyncInn.Models.Interfaces
         Task<Amenities> GetAmenity(int id);
         Task<List<Amenities>> GetAmenities();
         //Update
-        Task UpdateAmenity(int id);
+        Task UpdateAmenity(Amenities amenity);
         //Delete
         Task DeleteAmenity(int id);
+
+        Task<IEnumerable<RoomAmenities>> GetRoomsThatHaveAmenity(int amenityID);
     }
 }

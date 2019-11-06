@@ -36,10 +36,16 @@ namespace AsyncInn.Models.Services
         }
 
 
-        public async Task UpdateAmenity(int id)
+        public async Task UpdateAmenity(Amenities amenity)
         {
-            _context.Update(await GetAmenity(id));
+            _context.Update(amenity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<RoomAmenities>> GetRoomsThatHaveAmenity(int amenityID)
+        {
+            var rooms = await _context.RoomAmenities.Where(amenity => amenity.AmenitiesID == amenityID).ToListAsync();
+            return rooms;
         }
     }
 }

@@ -35,10 +35,22 @@ namespace AsyncInn.Models.Services
             return rooms;
         }
 
-        public async Task UpdateRoom(int id)
+        public async Task UpdateRoom(Room room)
         {
-            _context.Update(GetRoom(id));
+            _context.Update(room);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<RoomAmenities>> GetAmenitiesAssociatedWithRoom(int roomID)
+        {
+            var amenities = await _context.RoomAmenities.Where(room => room.RoomID == roomID).ToListAsync();
+            return amenities;
+        }
+
+        public async Task<IEnumerable<HotelRoom>> GetHotelsWhereRoomsAreLocated(int roomID)
+        {
+            var hotels = await _context.HotelRooms.Where(room => room.RoomID == roomID).ToListAsync();
+            return hotels;
         }
     }
 }

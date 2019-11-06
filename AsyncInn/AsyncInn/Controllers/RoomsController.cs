@@ -96,7 +96,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    await _context.UpdateRoom(id);
+                    await _context.UpdateRoom(room);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -96,7 +96,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    await _context.UpdateHotel(id);
+                    await _context.UpdateHotel(hotel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -96,7 +96,7 @@ namespace AsyncInn.Controllers
             {
                 try
                 {
-                    await _context.UpdateAmenity(id);
+                    await _context.UpdateAmenity(amenities);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
