@@ -65,9 +65,9 @@ namespace AsyncInn.Models.Services
             return amenities;
         }
 
-        public IEnumerable<Amenities> GetAllAmenitiesList()
+        public async Task<IEnumerable<Amenities>> GetAllAmenitiesList()
         {
-            return _context.Amenities;
+            return await _context.Amenities.ToListAsync();
         }
 
         public async Task<IEnumerable<HotelRoom>> GetHotelsWhereRoomsAreLocated(int roomID)

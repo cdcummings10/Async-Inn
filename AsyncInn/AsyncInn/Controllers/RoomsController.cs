@@ -78,7 +78,7 @@ namespace AsyncInn.Controllers
             RoomAmenitiesVM ravm = new RoomAmenitiesVM();
             ravm.Room = room;
             ravm.Amenities = amenities;
-            ravm.AmenitiesList = _context.GetAllAmenitiesList();
+            ravm.AmenitiesList = await _context.GetAllAmenitiesList();
             ravm.RoomAmenitiesIDs = new int[ravm.Amenities.Count()];
 
             int count = 0;
@@ -163,11 +163,18 @@ namespace AsyncInn.Controllers
         //rooms/RemoveAmenity/ID object
         [HttpPost, ActionName("RemoveAmenity")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveAmenity(int roomID, int amenityID)
+        public async Task<IActionResult> RemoveAmenity(int RoomID, int AmenitiesID)
         {
-            await _context.RemoveAmenityFromRoom(roomID, amenityID);
-            Room room = await _context.GetRoom(roomID);
-            return View(room);
+            await _context.RemoveAmenityFromRoom(RoomID, AmenitiesID);
+            return RedirectToAction(nameof(Index), "Rooms");
+        }
+
+        [HttpPost, ActionName("AddAmenity")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAmenity(int RoomID, int ID)
+        {
+            await _context.AddAmenityToRoom(RoomID, ID);
+            return RedirectToAction(nameof(Index), "Rooms");
         }
     }
 }
