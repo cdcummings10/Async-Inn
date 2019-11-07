@@ -41,14 +41,15 @@
         {
             if (Model.RoomAmenitiesIDs.Contains(item.ID))
             {
-                <li>
-                    <span>@item.Name</span>
-                    <form asp-action="DeleteAmenity">
-                        <input type="hidden" asp-for="Room.ID" />
-                        <input type="hidden" asp-for="@item.ID" />
-                        <input type="submit" value="Delete" class="btn btn-danger" /> |
-                    </form>
-                </li>
+        <li>
+            <span>@item.Name</span>
+            <form asp-action="RemoveAmenity">
+                <input type="hidden" asp-for="Room.ID" />
+                <input type="hidden" asp-for="@item.ID" />
+                <input type="submit" value="Delete" class="btn btn-danger" />   
+            </form>
+            <a asp-action="RemoveAmenity" asp-controller="Rooms" asp-route-roomID="@Model.Room.ID" asp-route-amenityID="@item.ID">Remove</a>
+        </li>
             }
             else
             {

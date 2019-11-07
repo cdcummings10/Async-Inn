@@ -160,12 +160,13 @@ namespace AsyncInn.Controllers
             return room == null ? false : true;
         }
 
-        [HttpPost, ActionName("DeleteAmenity")]
+        //rooms/RemoveAmenity/ID object
+        [HttpPost, ActionName("RemoveAmenity")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RemoveAmenity(int room_ID, int amenity_ID)
+        public async Task<IActionResult> RemoveAmenity(int roomID, int amenityID)
         {
-            await _context.RemoveAmenityFromRoom(room_ID, amenity_ID);
-            Room room = await _context.GetRoom(room_ID);
+            await _context.RemoveAmenityFromRoom(roomID, amenityID);
+            Room room = await _context.GetRoom(roomID);
             return View(room);
         }
     }
