@@ -44,11 +44,10 @@
                 <li>
                     <span>@item.Name</span>
                     <form asp-action="RemoveAmenity">
-                        <input type="hidden" asp asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
+                        <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
                         <input type="hidden" asp-for="@Model.Amenities.First(x => x.AmenitiesID == item.ID).AmenitiesID" />
                         <input type="submit" value="Delete" class="btn btn-danger" />
                     </form>
-                    <a asp-action="RemoveAmenity" asp-controller="Rooms" asp-route-roomID="@Model.Room.ID" asp-route-amenityID="@item.ID">Remove</a>
                 </li>
             }
             else
@@ -56,7 +55,7 @@
                 <li>
                     <span>@item.Name</span>
                     <form asp-action="AddAmenity">
-                        <input type="hidden" asp asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
+                        <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
                         <input type="hidden" asp-for="@Model.AmenitiesList.First(x => x.Name == item.Name).ID" />
                         <input type="submit" value="Add" class="btn btn-primary" />
                     </form>

@@ -7,6 +7,9 @@ namespace AsyncInn.Models.ViewModels
 {
     public class HotelRoomVM
     {
-        public IEnumerable<HotelRoom> hotelRooms { get; set; }
+        public IEnumerable<HotelRoom> HotelRooms { get; set; }
+        public Hotel Hotel { get; set; }
+        public IEnumerable<Room> Rooms { get; set; }
+
     }
 }

@@ -41,9 +41,11 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<HotelRoom>> GetRoomsInHotelRoom(int hotelID)
+        public IEnumerable<HotelRoom> GetRoomsInHotelRoom(int hotelID)
         {
-            var rooms = await _context.HotelRooms.Where(hotel => hotel.HotelID == hotelID).ToListAsync();
+            var rooms = _context.HotelRooms.Where(hotel => hotel.HotelID == hotelID)
+                .Include(x => x.Hotel)
+                .Include(x => x.Room);
             return rooms;
         }
     }
