@@ -1,4 +1,4 @@
-﻿@model AsyncInn.Models.Hotel
+﻿@model AsyncInn.Models.ViewModels.HotelRoomVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -17,31 +17,31 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="Hotel.ID" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Hotel.Name" class="control-label"></label>
+                <input asp-for="Hotel.Name" class="form-control" />
+                <span asp-validation-for="Hotel.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StreetAddress" class="control-label"></label>
-                <input asp-for="StreetAddress" class="form-control" />
-                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                <label asp-for="Hotel.StreetAddress" class="control-label"></label>
+                <input asp-for="Hotel.StreetAddress" class="form-control" />
+                <span asp-validation-for="Hotel.StreetAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <label asp-for="Hotel.City" class="control-label"></label>
+                <input asp-for="Hotel.City" class="form-control" />
+                <span asp-validation-for="Hotel.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+                <label asp-for="Hotel.State" class="control-label"></label>
+                <input asp-for="Hotel.State" class="form-control" />
+                <span asp-validation-for="Hotel.State" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <label asp-for="Hotel.Phone" class="control-label"></label>
+                <input asp-for="Hotel.Phone" class="form-control" />
+                <span asp-validation-for="Hotel.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -51,7 +51,18 @@
 </div>
 
 <div>
-    @Html.ActionLink("Add a Room to this Hotel", "Create", "HotelRooms", new { HotelID = Model.ID })
+    @Html.ActionLink("Add a Room to this Hotel", "Create", "HotelRooms", new { HotelID = Model.Hotel.ID })
+    <ul>
+        @foreach (var room in Model.HotelRooms)
+        {
+            <li>@room.Room.Name</li>
+            <form asp-action="Delete" asp-controller="HotelRooms">
+                <input type="hidden" asp-for="@Model.HotelRooms.First(x => x.RoomNumber == room.RoomNumber).RoomNumber" />
+                <input type="hidden" asp-for="@Model.HotelRooms.First(x => x.HotelID == room.HotelID).HotelID" />
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </form>
+        }
+    </ul>
 </div>
 
 <div>

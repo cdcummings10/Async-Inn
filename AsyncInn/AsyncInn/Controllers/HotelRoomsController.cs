@@ -44,20 +44,18 @@ namespace AsyncInn.Controllers
         }
 
         // POST: HotelRooms/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("HotelID,RoomNumber,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(hotelRoom);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(hotelRoom);
-        //}
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+         //more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("HotelID,RoomNumber,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
+        {
+            if (ModelState.IsValid)
+            {
+                await _hotels.AddRoomToHotel(hotelRoom);
+            }
+            return RedirectToAction("Index", "Hotels");
+        }
 
         //// GET: HotelRooms/Edit/5
         //public async Task<IActionResult> Edit(int? id)
@@ -128,16 +126,14 @@ namespace AsyncInn.Controllers
         //    return View(hotelRoom);
         //}
 
-        //// POST: HotelRooms/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var hotelRoom = await _context.HotelRooms.FindAsync(id);
-        //    _context.HotelRooms.Remove(hotelRoom);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        // POST: HotelRooms/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int HotelID, int RoomNumber)
+        {
+            await _hotels.RemoveRoomFromHotel(HotelID, RoomNumber);
+            return RedirectToAction("Index", "Hotels");
+        }
 
         //private bool HotelRoomExists(int id)
         //{

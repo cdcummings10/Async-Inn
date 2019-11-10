@@ -79,11 +79,16 @@ namespace AsyncInn.Controllers
             }
 
             var hotel = await _context.GetHotel(id);
+            var hotelRooms = _context.GetRoomsInHotelRoom(id);
+
+            HotelRoomVM hrvm = new HotelRoomVM();
+            hrvm.Hotel = hotel;
+            hrvm.HotelRooms = hotelRooms;
             if (hotel == null)
             {
                 return NotFound();
             }
-            return View(hotel);
+            return View(hrvm);
         }
 
         // POST: Hotels/Edit/5

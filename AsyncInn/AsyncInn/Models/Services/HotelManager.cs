@@ -48,5 +48,18 @@ namespace AsyncInn.Models.Services
                 .Include(x => x.Room);
             return rooms;
         }
+
+        public async Task AddRoomToHotel(HotelRoom hotelRoom)
+        {
+            await _context.HotelRooms.AddAsync(hotelRoom);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveRoomFromHotel(int hotelID, int roomNumber)
+        {
+            HotelRoom room = await _context.HotelRooms.FirstOrDefaultAsync(x => x.HotelID == hotelID && x.RoomNumber == roomNumber);
+            _context.Remove(room);
+            await _context.SaveChangesAsync();
+        }
     }
 }
