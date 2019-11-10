@@ -37,29 +37,46 @@
 
 <div>
     <ul>
-        @foreach (var item in Model.AmenitiesList)
+        @if (Model.Amenities.Count() != 0)
         {
-            if (Model.RoomAmenitiesIDs.Contains(item.ID))
+            @foreach (var item in Model.AmenitiesList)
             {
-                <li>
-                    <span>@item.Name</span>
-                    <form asp-action="RemoveAmenity">
-                        <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
-                        <input type="hidden" asp-for="@Model.Amenities.First(x => x.AmenitiesID == item.ID).AmenitiesID" />
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                    </form>
-                </li>
+                if (Model.RoomAmenitiesIDs.Contains(item.ID))
+                {
+                    <li>
+                        <span>@item.Name</span>
+                        <form asp-action="RemoveAmenity">
+                            <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != 0).RoomID" />
+                            <input type="hidden" asp-for="@Model.Amenities.First(x => x.AmenitiesID == item.ID).AmenitiesID" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <span>@item.Name</span>
+                        <form asp-action="AddAmenity">
+                            <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
+                            <input type="hidden" asp-for="@Model.AmenitiesList.First(x => x.ID == item.ID).Name" />
+                            <input type="submit" value="Add" class="btn btn-primary" />
+                        </form>
+                    </li>
+                }
             }
-            else
+        }
+        else
+        {
+            @foreach (var item in Model.AmenitiesList)
             {
-                <li>
-                    <span>@item.Name</span>
-                    <form asp-action="AddAmenity">
-                        <input type="hidden" asp-for="@Model.Amenities.First(x => x.RoomID != null).RoomID" />
-                        <input type="hidden" asp-for="@Model.AmenitiesList.First(x => x.Name == item.Name).ID" />
-                        <input type="submit" value="Add" class="btn btn-primary" />
-                    </form>
-                </li>
+            <li>
+                <span>@item.Name</span>
+                <form asp-action="AddAmenity">
+                    <input type="hidden" id="RoomID" name="RoomID" asp-for="@Model.Room.ID" />
+                    <input type="hidden" asp-for="@Model.AmenitiesList.First(x => x.ID == item.ID).Name" />
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </form>
+            </li>
             }
         }
     </ul>

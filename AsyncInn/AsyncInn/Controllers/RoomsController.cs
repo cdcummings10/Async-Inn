@@ -36,12 +36,16 @@ namespace AsyncInn.Controllers
             }
 
             var room = await _context.GetRoom(id);
+            var amenities = _context.GetAmenitiesAssociatedWithRoom(id);
+            RoomAmenitiesVM ravm = new RoomAmenitiesVM();
+            ravm.Room = room;
+            ravm.Amenities = amenities;
             if (room == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            return View(ravm);
         }
 
         // GET: Rooms/Create
@@ -171,8 +175,10 @@ namespace AsyncInn.Controllers
 
         [HttpPost, ActionName("AddAmenity")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddAmenity(int RoomID, int ID)
+        public async Task<IActionResult> AddAmenity(int RoomID, string Name)
         {
+            var amenities = await _context.GetAllAmenitiesList();
+            int ID = amenities.First(x => x.Name == Name).ID;
             await _context.AddAmenityToRoom(RoomID, ID);
             return RedirectToAction(nameof(Index), "Rooms");
         }
