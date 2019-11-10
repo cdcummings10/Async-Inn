@@ -51,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="Create" asp-controller="HotelRooms">Add Room To Hotel</a>
+    @Html.ActionLink("Add a Room to this Hotel", "Create", "HotelRooms", new { HotelID = Model.ID })
 </div>
 
 <div>

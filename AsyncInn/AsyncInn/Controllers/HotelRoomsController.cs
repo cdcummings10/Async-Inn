@@ -36,8 +36,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRooms/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewData["HotelID"] = new SelectList(await _hotels.GetHotels(), "ID", "Name");
+            ViewData["RoomID"] = new SelectList(await _rooms.GetRooms(), "ID", "Name");
             return View();
         }
 

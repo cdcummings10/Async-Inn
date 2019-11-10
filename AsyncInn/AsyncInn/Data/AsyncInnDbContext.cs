@@ -112,7 +112,7 @@ namespace AsyncInn.Data
                 }, new Amenities
                 {
                     ID = 2,
-                    Name = "Coffee Maker"
+                    Name = "Towels Folded Into Swans"
                 }, new Amenities
                 {
                     ID = 3,
