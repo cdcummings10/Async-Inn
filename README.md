@@ -4,6 +4,9 @@
 
 ----
 
+## Azure Deployment: https://asyncinn.azurewebsites.net/
+
+
 ## Description
 This app is a mock creation of a MVC site using Entity Framework to create a relational database.
 
@@ -65,9 +68,9 @@ TBD
 ---
 
 ### Time Estimates
-Estimated time to finish: 4 Hours
+Estimated time to finish: 40 Hours
 
-Actual time to finish: 2.5 Hours
+Actual time to finish: 20 Hours
 
 ### Change Log 
 
@@ -76,3 +79,5 @@ Actual time to finish: 2.5 Hours
 1.1: *Updated to bootstrap and added CRUD functionality.* - 4 Nov 2019
 
 1.2: *Implemented repository design pattern. Added interfaces and reattachd functionality.* - 4 Nov 2019
+
+1.3: *Finished based functionality of site, added some tests.* - 10 Nov 2019
