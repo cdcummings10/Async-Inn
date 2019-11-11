@@ -6,7 +6,7 @@
         public int RoomID { get; set; }
 
         //nav props
-        Amenities Amenities { get; set; }
-        Room Room { get; set; }
+        public Amenities Amenities { get; set; }
+        public Room Room { get; set; }
     }
 }

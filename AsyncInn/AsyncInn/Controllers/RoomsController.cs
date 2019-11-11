@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.ViewModels;
 
 namespace AsyncInn.Controllers
 {
@@ -35,12 +36,16 @@ namespace AsyncInn.Controllers
             }
 
             var room = await _context.GetRoom(id);
+            var amenities = _context.GetAmenitiesAssociatedWithRoom(id);
+            RoomAmenitiesVM ravm = new RoomAmenitiesVM();
+            ravm.Room = room;
+            ravm.Amenities = amenities;
             if (room == null)
             {
                 return NotFound();
             }
 
-            return View(room);
+            return View(ravm);
         }
 
         // GET: Rooms/Create
@@ -73,11 +78,24 @@ namespace AsyncInn.Controllers
             }
 
             var room = await _context.GetRoom(id);
+            var amenities = _context.GetAmenitiesAssociatedWithRoom(id);
+            RoomAmenitiesVM ravm = new RoomAmenitiesVM();
+            ravm.Room = room;
+            ravm.Amenities = amenities;
+            ravm.AmenitiesList = await _context.GetAllAmenitiesList();
+            ravm.RoomAmenitiesIDs = new int[ravm.Amenities.Count()];
+
+            int count = 0;
+            foreach (var item in ravm.Amenities)
+            {
+                ravm.RoomAmenitiesIDs[count] = item.AmenitiesID;
+                count++;
+            }
             if (room == null)
             {
                 return NotFound();
             }
-            return View(room);
+            return View(ravm);
         }
 
         // POST: Rooms/Edit/5
@@ -144,6 +162,25 @@ namespace AsyncInn.Controllers
         {
             Room room = await _context.GetRoom(id);
             return room == null ? false : true;
+        }
+
+        //rooms/RemoveAmenity/ID object
+        [HttpPost, ActionName("RemoveAmenity")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveAmenity(int RoomID, int AmenitiesID)
+        {
+            await _context.RemoveAmenityFromRoom(RoomID, AmenitiesID);
+            return RedirectToAction(nameof(Index), "Rooms");
+        }
+
+        [HttpPost, ActionName("AddAmenity")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddAmenity(int RoomID, string Name)
+        {
+            var amenities = await _context.GetAllAmenitiesList();
+            int ID = amenities.First(x => x.Name == Name).ID;
+            await _context.AddAmenityToRoom(RoomID, ID);
+            return RedirectToAction(nameof(Index), "Rooms");
         }
     }
 }

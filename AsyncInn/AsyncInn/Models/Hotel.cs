@@ -18,6 +18,6 @@ namespace AsyncInn.Models
         public string Phone { get; set; }
 
         //nav props
-        ICollection<HotelRoom> HotelRooms { get; set; }
+        public ICollection<HotelRoom> HotelRooms { get; set; }
     }
 }

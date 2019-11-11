@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.ViewModels;
 
 namespace AsyncInn.Controllers
 {
@@ -35,12 +36,17 @@ namespace AsyncInn.Controllers
             }
 
             var hotel = await _context.GetHotel(id);
+            var hotelRooms = _context.GetRoomsInHotelRoom(id);
+
+            HotelRoomVM hrvm = new HotelRoomVM();
+            hrvm.Hotel = hotel;
+            hrvm.HotelRooms = hotelRooms;
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            return View(hotel);
+            return View(hrvm);
         }
 
         // GET: Hotels/Create
@@ -73,11 +79,16 @@ namespace AsyncInn.Controllers
             }
 
             var hotel = await _context.GetHotel(id);
+            var hotelRooms = _context.GetRoomsInHotelRoom(id);
+
+            HotelRoomVM hrvm = new HotelRoomVM();
+            hrvm.Hotel = hotel;
+            hrvm.HotelRooms = hotelRooms;
             if (hotel == null)
             {
                 return NotFound();
             }
-            return View(hotel);
+            return View(hrvm);
         }
 
         // POST: Hotels/Edit/5
